@@ -30,19 +30,17 @@ public class Graph
 
         source.traveled = 0;
 
+        HashSet<Node> visited = new HashSet<>();
         PriorityQueue<Node> toCheck = new PriorityQueue<>(); //order to check children
         toCheck.add(source);
-        Node current;
         while(toCheck.size() > 0)
         {
-            current = toCheck.poll();
+            Node current = toCheck.poll();
+            visited.add(current);
             for(Node node : current.adjacent.keySet())
             {
-                if(!current.visited.contains(node) && node.traveled > current.traveled + current.adjacent.get(node))
+                if(!visited.contains(node) && node.traveled > current.traveled + current.adjacent.get(node))
                 {
-                    current.visited.add(node);
-                    node.visited.add(current);
-
                     node.prev = current;
                     node.traveled = current.traveled + current.adjacent.get(node);
                     toCheck.add(node);
@@ -63,7 +61,6 @@ public class Graph
         {
             entry.getValue().prev = null;
             entry.getValue().traveled = Integer.MAX_VALUE;
-            entry.getValue().visited = new HashSet<>();
         }
     }
 
@@ -74,7 +71,6 @@ public class Graph
 
         Node prev;
         int traveled = Integer.MAX_VALUE;
-        HashSet<Node> visited = new HashSet<>();
 
         private Node(int id)
         {
