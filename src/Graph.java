@@ -28,6 +28,11 @@ public class Graph
         Node source = getNode(start);
         Node exit = getNode(end);
 
+        for(Map.Entry<Integer, Node> entry : nodeLookup.entrySet())
+        {
+            //entry.getValue().prev = null;
+            entry.getValue().traveled = Integer.MAX_VALUE;
+        }
         source.traveled = 0;
 
         HashSet<Node> visited = new HashSet<>();
@@ -41,27 +46,21 @@ public class Graph
             {
                 if(!visited.contains(node) && node.traveled > current.traveled + current.adjacent.get(node))
                 {
-                    node.prev = current;
+                    //node.prev = current;
                     node.traveled = current.traveled + current.adjacent.get(node);
                     toCheck.add(node);
                 }
+                /*faster processing to cut off here, but may not be fastest path
                 if(current.id == exit.id)
+                {
                     break;
+                }
+                */
             }
         }
         if(exit.traveled == Integer.MAX_VALUE)
             return -1;
         return exit.traveled;
-
-    }
-
-    public void resetVals()
-    {
-        for(Map.Entry<Integer, Node> entry : nodeLookup.entrySet())
-        {
-            entry.getValue().prev = null;
-            entry.getValue().traveled = Integer.MAX_VALUE;
-        }
     }
 
     static class Node implements Comparable<Node>
@@ -69,7 +68,7 @@ public class Graph
         int id;
         HashMap<Node, Integer> adjacent = new HashMap<>();  //<node, edge weight>
 
-        Node prev;
+        //Node prev;
         int traveled = Integer.MAX_VALUE;
 
         private Node(int id)

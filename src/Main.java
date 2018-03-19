@@ -26,7 +26,6 @@ public class Main
             int escapers = 0;
             for(int ni = 1; ni <= n; ni++)
             {
-                maze.resetVals();
                 int time = maze.pathWeight(ni, e);
                 if(time <= t && time != -1)
                     escapers++;
