@@ -3,6 +3,14 @@ public class Graph
 {
     HashMap<Integer, Node> nodeLookup = new HashMap<>(); //<id, node>
 
+    public Graph(int size)
+    {
+        for(int i = 1; i <= size; i++)
+        {
+            nodeLookup.put(i, new Node(i));
+        }
+    }
+
     private Node getNode(int id)
     {
         return nodeLookup.get(id);
@@ -10,11 +18,6 @@ public class Graph
 
     public void addEdge(int start, int end, int weight)
     {
-        if(getNode(start)==null)
-            nodeLookup.put(start, new Node(start));
-        if(getNode(end)==null)
-            nodeLookup.put(end, new Node(end));
-
         Node a = getNode(start);
         Node b = getNode(end);
 
@@ -31,6 +34,7 @@ public class Graph
         for(Map.Entry<Integer, Node> entry : nodeLookup.entrySet())
         {
             //entry.getValue().prev = null;
+            //System.out.println(entry.getValue().traveled);
             entry.getValue().traveled = Integer.MAX_VALUE;
         }
         source.traveled = 0;

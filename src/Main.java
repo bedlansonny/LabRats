@@ -12,7 +12,7 @@ public class Main
             int e = in.nextInt(); //exit cell number
             int t = in.nextInt(); //time duration
             int m = in.nextInt(); //number of connections in the maze
-            Graph maze = new Graph();
+            Graph maze = new Graph(n);
 
             for(int mi = 0; mi < m; mi++)
             {
@@ -29,10 +29,10 @@ public class Main
                 int time = maze.pathWeight(ni, e);
                 if(time <= t && time != -1)
                     escapers++;
-                System.out.printf("cell %d: %d seconds%n", ni, time);
+                //System.out.printf("cell %d: %d seconds%n", ni, time);
             }
 
-            System.out.println(escapers);
+            System.out.println(escapers + "\n");
         }
     }
 }
